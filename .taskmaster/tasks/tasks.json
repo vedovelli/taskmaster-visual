@@ -130,7 +130,7 @@
               "3.3"
             ],
             "details": "Criar src/types/taskmaster.ts com tipos TypeScript derivados dos schemas usando z.infer<>. Implementar TasksFileSchema principal que combina todos os schemas. Exportar tipos Subtask, Task, Tag, State, TasksFile e outros tipos auxiliares. Garantir compatibilidade total entre schemas e tipos.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -907,7 +907,7 @@
     ],
     "metadata": {
       "created": "2025-07-26T13:23:39.673Z",
-      "updated": "2025-07-26T14:39:44.099Z",
+      "updated": "2025-07-26T14:40:44.365Z",
       "description": "Tasks for master context"
     }
   }
