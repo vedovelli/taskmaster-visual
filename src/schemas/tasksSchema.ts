@@ -89,3 +89,26 @@ export const TaskSchema = z
       });
     });
   });
+
+// Schema para validação de metadados de tags
+export const TagMetadataSchema = z.object({
+  description: z.string().optional(),
+  createdAt: z.string().datetime().optional(),
+  updatedAt: z.string().datetime().optional(),
+  author: z.string().optional(),
+  version: z.string().optional(),
+});
+
+// Schema para validação de estrutura de tags
+export const TagSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Tag name cannot be empty")
+    .regex(/^[a-zA-Z0-9\-_]+$/, {
+      message:
+        "Tag name must contain only alphanumeric characters, hyphens, and underscores",
+    }),
+  tasks: z.array(TaskSchema).default([]),
+  metadata: TagMetadataSchema.optional(),
+  isActive: z.boolean().default(false),
+});
