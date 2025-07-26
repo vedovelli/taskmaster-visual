@@ -61,6 +61,17 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				status: {
+					done: 'hsl(var(--status-done))',
+					'in-progress': 'hsl(var(--status-in-progress))',
+					pending: 'hsl(var(--status-pending))',
+					blocked: 'hsl(var(--status-blocked))'
+				},
+				priority: {
+					high: 'hsl(var(--priority-high))',
+					medium: 'hsl(var(--priority-medium))',
+					low: 'hsl(var(--priority-low))'
 				}
 			},
 			borderRadius: {
