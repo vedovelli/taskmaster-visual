@@ -89,7 +89,7 @@
         "dependencies": [
           1
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -97,7 +97,7 @@
             "description": "Implementar schema Zod para validação de subtarefas",
             "dependencies": [],
             "details": "Criar src/schemas/tasksSchema.ts e implementar SubtaskSchema com validação para id, title, description, status (done, in-progress, pending, blocked), priority (high, medium, low), dependencies, details, e testStrategy. Incluir validações específicas para formato de ID de subtarefa (ex: '1.1', '2.3').",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -108,7 +108,7 @@
               "3.1"
             ],
             "details": "Implementar TaskSchema que inclui todos os campos de SubtaskSchema mais um array de subtasks. Validar que IDs de tarefas principais são números simples (ex: '1', '2', '3'). Incluir validação de dependências entre tarefas e estrutura hierárquica de subtarefas.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -117,7 +117,7 @@
             "description": "Implementar schemas para tags e estado da aplicação",
             "dependencies": [],
             "details": "Implementar TagSchema para validação de estrutura de tags com metadados. Criar src/schemas/stateSchema.ts com StateSchema para validação de state.json incluindo tag atual, configurações, e estado da aplicação. Definir validações para estruturas de dados específicas do Task Master.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -130,7 +130,7 @@
               "3.3"
             ],
             "details": "Criar src/types/taskmaster.ts com tipos TypeScript derivados dos schemas usando z.infer<>. Implementar TasksFileSchema principal que combina todos os schemas. Exportar tipos Subtask, Task, Tag, State, TasksFile e outros tipos auxiliares. Garantir compatibilidade total entre schemas e tipos.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -907,7 +907,7 @@
     ],
     "metadata": {
       "created": "2025-07-26T13:23:39.673Z",
-      "updated": "2025-07-26T14:04:12.922Z",
+      "updated": "2025-07-26T14:43:58.492Z",
       "description": "Tasks for master context"
     }
   }

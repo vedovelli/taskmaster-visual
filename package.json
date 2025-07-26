@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "qa": "npm run lint && npm run typecheck && npm run build",
+    "qa": "npm run lint && npm run typecheck && npm run test:run && npm run build",
     "preview": "vite preview",
     "prepare": "husky",
     "test": "vitest",
