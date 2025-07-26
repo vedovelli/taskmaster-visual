@@ -189,7 +189,7 @@ describe("TaskMaster Types", () => {
       };
 
       expect(() => TasksFileSchema.parse(invalidFile)).toThrow(
-        /Task dependency '999' not found in any tag/
+        /Task dependency '999' references a non-existent task/
       );
     });
 
@@ -226,7 +226,7 @@ describe("TaskMaster Types", () => {
       };
 
       expect(() => TasksFileSchema.parse(invalidFile)).toThrow(
-        /Subtask dependency '999' not found in any tag/
+        /Subtask dependency '999' references a non-existent task/
       );
     });
 

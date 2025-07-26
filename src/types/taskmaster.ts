@@ -41,7 +41,17 @@ export type SessionState = z.infer<typeof SessionStateSchema>;
 export type ProjectMetadata = z.infer<typeof ProjectMetadataSchema>;
 export type State = z.infer<typeof StateSchema>;
 
-// Schema principal para tasks.json que combina todos os schemas
+/**
+ * Main schema for tasks.json file validation
+ * Combines all schemas with complex cross-validation logic
+ *
+ * @version 1.0.0
+ * @migration_strategy When updating this schema:
+ * 1. Increment version field
+ * 2. Add migration logic for backwards compatibility
+ * 3. Use migrationVersion field to track schema changes
+ * 4. Test with existing data before deployment
+ */
 export const TasksFileSchema = z
   .object({
     version: z.string().default("1.0.0"),
@@ -111,7 +121,7 @@ export const TasksFileSchema = z
           if (!depTaskExists) {
             ctx.addIssue({
               code: z.ZodIssueCode.custom,
-              message: `Task dependency '${dep}' not found in any tag`,
+              message: `Task dependency '${dep}' references a non-existent task. Please check task IDs in all tags.`,
               path: [
                 "tags",
                 tagName,
@@ -135,7 +145,7 @@ export const TasksFileSchema = z
             if (!depExists) {
               ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: `Subtask dependency '${dep}' not found in any tag`,
+                message: `Subtask dependency '${dep}' references a non-existent task. Please check task IDs in all tags.`,
                 path: [
                   "tags",
                   tagName,

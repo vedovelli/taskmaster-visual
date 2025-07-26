@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-// Schema para validação de status das tarefas
+/**
+ * Schema for validating task status values
+ * @example "done" | "in-progress" | "pending" | "blocked"
+ */
 export const StatusSchema = z.enum([
   "done",
   "in-progress",
@@ -8,23 +11,38 @@ export const StatusSchema = z.enum([
   "blocked",
 ]);
 
-// Schema para validação de prioridades
+/**
+ * Schema for validating task priority levels
+ * @example "high" | "medium" | "low"
+ */
 export const PrioritySchema = z.enum(["high", "medium", "low"]);
 
-// Schema para validação de IDs de subtarefa (formato: '1.1', '2.3', etc.)
+/**
+ * Schema for validating subtask ID formats (hierarchical)
+ * @example "1.1", "2.3", "10.25"
+ */
 export const SubtaskIdSchema = z.string().regex(/^\d+\.\d+$/, {
   message: "Subtask ID must be in format 'number.number' (e.g., '1.1', '2.3')",
 });
 
-// Schema para validação de IDs simples de tarefa (formato: '1', '2', etc.)
+/**
+ * Schema for validating main task ID formats (simple numbers)
+ * @example "1", "2", "25"
+ */
 export const TaskIdSchema = z.string().regex(/^\d+$/, {
   message: "Task ID must be a simple number (e.g., '1', '2', '3')",
 });
 
-// Schema para validação de dependências (podem ser IDs de tarefas ou subtarefas)
+/**
+ * Schema for validating dependency references (can be task or subtask IDs)
+ * @example "1" (task) | "1.1" (subtask)
+ */
 export const DependencySchema = z.union([TaskIdSchema, SubtaskIdSchema]);
 
-// Schema para validação de subtarefas
+/**
+ * Schema for validating individual subtasks
+ * Contains all fields required for a subtask including validation rules
+ */
 export const SubtaskSchema = z.object({
   id: z.number().int().positive(),
   title: z.string().min(1, "Title cannot be empty"),
@@ -36,7 +54,10 @@ export const SubtaskSchema = z.object({
   testStrategy: z.string().default(""),
 });
 
-// Schema para validação de tarefas principais (herda de subtask + array de subtasks)
+/**
+ * Schema for validating main tasks with hierarchical subtask structure
+ * Includes complex validation for subtask relationships and dependencies
+ */
 export const TaskSchema = z
   .object({
     id: z.number().int().positive(),
@@ -90,7 +111,10 @@ export const TaskSchema = z
     });
   });
 
-// Schema para validação de metadados de tags
+/**
+ * Schema for validating tag metadata (optional information)
+ * Used for tracking tag creation, updates, and authorship
+ */
 export const TagMetadataSchema = z.object({
   description: z.string().optional(),
   createdAt: z.string().datetime().optional(),
@@ -99,7 +123,10 @@ export const TagMetadataSchema = z.object({
   version: z.string().optional(),
 });
 
-// Schema para validação de estrutura de tags
+/**
+ * Schema for validating tag structure and constraints
+ * Enforces naming conventions and task organization
+ */
 export const TagSchema = z.object({
   name: z
     .string()
