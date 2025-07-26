@@ -1,0 +1,62 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Configurar Projeto",
+      "description": "Configurar estrutura inicial do projeto",
+      "details": "Configurar ambiente de desenvolvimento, dependências e estrutura de arquivos básica.",
+      "testStrategy": "Verificar se todos os arquivos de configuração foram criados corretamente.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "done",
+      "subtasks": []
+    },
+    {
+      "id": 2,
+      "title": "Implementar Interface de Usuário",
+      "description": "Criar componentes principais da interface",
+      "details": "Desenvolver componentes React para visualização e interação com tarefas.",
+      "testStrategy": "Testar renderização e interação dos componentes.",
+      "priority": "medium",
+      "dependencies": [1],
+      "status": "in-progress",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Criar TaskCard Component",
+          "description": "Componente para exibir informações de uma tarefa",
+          "dependencies": [],
+          "details": "Implementar card responsivo com título, descrição, status e prioridade.",
+          "status": "done",
+          "testStrategy": "Testar renderização com diferentes props e estados."
+        },
+        {
+          "id": 2,
+          "title": "Criar TaskGrid Layout",
+          "description": "Layout em grid para organizar os cards de tarefas",
+          "dependencies": ["2.1"],
+          "details": "Grid responsivo com filtros e ordenação.",
+          "status": "pending",
+          "testStrategy": "Testar responsividade e funcionalidade de filtros."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Integração com File System",
+      "description": "Implementar carregamento e salvamento de arquivos",
+      "details": "Usar File System Access API para carregar e salvar projetos TaskMaster.",
+      "testStrategy": "Testar com mocks da File System Access API.",
+      "priority": "low",
+      "dependencies": [2],
+      "status": "pending",
+      "subtasks": []
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "lastModified": "2024-01-01T12:00:00Z",
+    "projectName": "Sample TaskMaster Project"
+  }
+}
