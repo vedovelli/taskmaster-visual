@@ -22,7 +22,7 @@
         "dependencies": [
           1
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -30,7 +30,7 @@
             "description": "Instalar e configurar Vitest com provider v8 e jsdom environment",
             "dependencies": [],
             "details": "Instalar vitest, @vitest/ui, jsdom. Criar vitest.config.ts com configuração de environment jsdom, globals true, provider v8, e configuração de coverage mínimo de 80%. Configurar scripts de teste no package.json (test, test:ui, test:coverage).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -41,7 +41,7 @@
               "2.1"
             ],
             "details": "Instalar @testing-library/react, @testing-library/jest-dom, @testing-library/user-event. Criar arquivo __tests__/setup.ts com configuração global do jest-dom e configurações de cleanup automático. Configurar vitest para usar este arquivo de setup.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -52,7 +52,7 @@
               "2.2"
             ],
             "details": "Criar __tests__/mocks/fileSystemMocks.ts com implementação mock da File System Access API. Implementar mocks para window.showDirectoryPicker, window.showOpenFilePicker. Configurar vi.mock() no setup.ts para usar estes mocks automaticamente.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -63,7 +63,7 @@
               "2.3"
             ],
             "details": "Criar estrutura de pastas: __tests__/unit/, __tests__/integration/, __tests__/fixtures/, __tests__/utils/. Criar arquivo __tests__/fixtures/taskmaster-sample.json com dados de exemplo realistas. Criar utilitários de teste em __tests__/utils/testUtils.tsx com wrappers customizados.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -74,7 +74,7 @@
               "2.4"
             ],
             "details": "Criar teste simples em __tests__/unit/App.test.tsx para validar renderização básica. Executar 'npm test' para verificar se configuração funciona. Executar 'npm run test:coverage' para validar geração de relatórios. Verificar se mocks estão funcionando corretamente.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -907,7 +907,7 @@
     ],
     "metadata": {
       "created": "2025-07-26T13:23:39.673Z",
-      "updated": "2025-07-26T13:26:52.521Z",
+      "updated": "2025-07-26T14:04:12.922Z",
       "description": "Tasks for master context"
     }
   }

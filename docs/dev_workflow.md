@@ -95,6 +95,7 @@
 ### 8. 💾 COMMIT
 
 - Faça commit apenas quando QA estiver 100% limpo
+- Sempre utilize `git add --all`
 - **Padrão de mensagem de commit**:
 
 ```
@@ -113,6 +114,7 @@ Closes #TaskID
 
 - **Ação**: Marque a tarefa/subtarefa como `done` no Task Master
 - Confirme que o status foi atualizado corretamente
+- Atualize a tarefa com detalhes de implementação
 
 ### 10. 📝 LOGGING DO DESENVOLVIMENTO
 
