@@ -153,7 +153,7 @@
             "description": "Criar função para detectar se o browser suporta File System Access API",
             "dependencies": [],
             "details": "Implementar hasFileSystemAccess() que verifica se 'showDirectoryPicker' está disponível no window. Retornar boolean para determinar qual fluxo usar (moderno ou fallback).",
-            "status": "pending",
+            "status": "in-progress",
             "testStrategy": ""
           },
           {
@@ -907,7 +907,7 @@
     ],
     "metadata": {
       "created": "2025-07-26T13:23:39.673Z",
-      "updated": "2025-07-26T14:43:58.492Z",
+      "updated": "2025-07-26T15:11:58.875Z",
       "description": "Tasks for master context"
     }
   }
