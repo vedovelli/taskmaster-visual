@@ -1,0 +1,133 @@
+{
+	"meta": {
+		"generatedAt": "2025-07-26T13:30:14.363Z",
+		"tasksAnalyzed": 15,
+		"totalTasks": 16,
+		"analysisCount": 15,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": false
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 2,
+			"taskTitle": "Configurar Estrutura de Testes",
+			"complexityScore": 7,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Quebrar a configuração de testes em etapas específicas: configuração do Vitest, setup do React Testing Library, criação de mocks para File System Access API, estrutura de pastas e validação da configuração",
+			"reasoning": "Configuração de ambiente de testes é moderadamente complexa, envolve múltiplas tecnologias (Vitest, RTL, mocks) e requer conhecimento específico de configuração."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Criar Schemas de Validação Zod",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Dividir em criação de schemas individuais: SubtaskSchema, TaskSchema, TagSchema, StateSchema e definição de tipos TypeScript correspondentes",
+			"reasoning": "Criação de schemas Zod é de complexidade média, requer entendimento da estrutura de dados e validações específicas do domínio."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Implementar Utilitários de Sistema de Arquivos",
+			"complexityScore": 8,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Separar em: detecção de capacidades do browser, implementação da File System Access API, fallback para input file, funções de leitura de arquivos, validação de estrutura de diretórios e tratamento de erros",
+			"reasoning": "Alta complexidade devido à necessidade de suportar múltiplas APIs (moderna e fallback), detecção de capacidades e tratamento robusto de erros."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Criar Utilitários de Validação",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Dividir em: funções de validação core usando Zod, tratamento e formatação de erros de validação, e sistema de logging para debugging",
+			"reasoning": "Complexidade média, depende dos schemas Zod mas é principalmente sobre integração e tratamento de erros."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Implementar Hook useProjectLoader",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Separar em: estrutura base do hook com estado, implementação da função loadProject, função resetProject e integração com utilitários de validação e sistema de arquivos",
+			"reasoning": "Complexidade alta devido à integração de múltiplas dependências e gerenciamento de estado complexo para diferentes cenários."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Implementar Hook useTaskManager",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Dividir em: estrutura de Context e Provider, gerenciamento de estado de tarefas e tags, funções de navegação hierárquica, e sistema de filtragem",
+			"reasoning": "Complexidade média-alta devido ao gerenciamento de estado global e navegação hierárquica complexa."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Implementar Hook useValidation",
+			"complexityScore": 4,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Separar em: estrutura base do hook de validação reativa, implementação de debouncing para performance, e integração com schemas Zod existentes",
+			"reasoning": "Complexidade baixa-média, é uma extensão dos utilitários de validação com funcionalidades reativas."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Criar Componente ProjectLoader",
+			"complexityScore": 7,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Dividir em: interface base com botão de seleção, implementação de drag-and-drop (quando suportado), indicadores visuais de estado, integração com useProjectLoader, e tratamento de diferentes cenários de erro",
+			"reasoning": "Complexidade alta devido à necessidade de múltiplas formas de interação (botão, drag-and-drop) e gestão de estados visuais complexos."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Criar Componente TaskCard",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Separar em: estrutura base do card com dados da tarefa, sistema de codificação de cores por status e prioridade, e implementação de hover states e micro-interações",
+			"reasoning": "Complexidade média, é principalmente um componente de apresentação com lógica de estilização baseada em dados."
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Criar Componente Navigation",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Dividir em: estrutura base do breadcrumb, geração dinâmica do caminho de navegação, botões de navegação entre níveis, e integração com useTaskManager para sincronização de estado",
+			"reasoning": "Complexidade média-alta devido à necessidade de gerar navegação dinâmica e integração com estado global complexo."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Criar Componente TaskViewer",
+			"complexityScore": 8,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Separar em: layout base responsivo para grid de tarefas, integração com TaskCard e Navigation, gerenciamento de visualização hierárquica de subtasks, implementação de responsividade avançada, e otimização de performance para listas grandes",
+			"reasoning": "Alta complexidade por ser o componente principal que integra múltiplas funcionalidades e precisa gerenciar hierarquia complexa."
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Criar Componente ErrorBoundary",
+			"complexityScore": 4,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Separar em: implementação do Error Boundary pattern, design da UI de fallback com Shadcn components, e sistema de logging e reset de erros",
+			"reasoning": "Complexidade baixa-média, é um padrão bem estabelecido do React com implementação relativamente direta."
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Implementar Layout Principal e Roteamento",
+			"complexityScore": 7,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Separar em: estrutura base do App.tsx, configuração de Context Providers, implementação de roteamento condicional, configuração do tema dark mode, e layout responsivo com header/main/footer",
+			"reasoning": "Complexidade alta por integrar múltiplos componentes e gerenciar o estado global da aplicação inteira."
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Implementar Sistema de Design e Styling",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Separar em: customização da paleta Tailwind para dark mode, implementação de animações e micro-interações, garantia de acessibilidade WCAG 2.1 AA, e testes de consistência visual e responsividade",
+			"reasoning": "Complexidade média-alta devido aos requisitos de acessibilidade e necessidade de sistema coeso de design."
+		},
+		{
+			"taskId": 16,
+			"taskTitle": "Implementar Testes de Integração e Coverage",
+			"complexityScore": 8,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Separar em: criação de fixtures de dados realistas, testes de fluxo completo de carregamento de projeto, testes de validação e visualização, configuração de coverage reporting, testes de acessibilidade, e otimização para atingir 80% de cobertura",
+			"reasoning": "Alta complexidade por ser teste end-to-end que precisa cobrir toda a aplicação e atingir métricas específicas de cobertura."
+		}
+	]
+}

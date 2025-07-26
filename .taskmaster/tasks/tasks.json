@@ -1,0 +1,914 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Configurar Ambiente de Desenvolvimento",
+        "description": "Configurar projeto Vite com React 18+, TypeScript, Tailwind CSS e Shadcn UI",
+        "details": "Criar novo projeto usando 'npm create vite@latest taskmaster-ui -- --template react-ts'. Instalar dependências: Tailwind CSS, Shadcn UI, Vitest, React Testing Library, @testing-library/jest-dom, @testing-library/user-event. Configurar vite.config.ts, tailwind.config.js, e arquivos de configuração de teste. Inicializar Shadcn UI com 'npx shadcn-ui@latest init'.",
+        "testStrategy": "Verificar se o projeto inicia corretamente com 'npm run dev'. Testar se o build funciona com 'npm run build'. Executar 'npm test' para garantir que a configuração de testes está funcionando.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Configurar Estrutura de Testes",
+        "description": "Configurar Vitest, React Testing Library e ambiente de testes completo",
+        "details": "Configurar vitest.config.ts com provider v8, jsdom environment, e cobertura mínima de 80%. Criar arquivo setup.ts em __tests__/ para configuração global. Configurar mocks para File System Access API. Criar estrutura de pastas para testes unitários, integração e fixtures.",
+        "testStrategy": "Executar 'npm test' para verificar configuração. Testar geração de coverage com 'npm run test:coverage'. Verificar se mocks funcionam corretamente.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Configurar Vitest e dependências",
+            "description": "Instalar e configurar Vitest com provider v8 e jsdom environment",
+            "dependencies": [],
+            "details": "Instalar vitest, @vitest/ui, jsdom. Criar vitest.config.ts com configuração de environment jsdom, globals true, provider v8, e configuração de coverage mínimo de 80%. Configurar scripts de teste no package.json (test, test:ui, test:coverage).",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configurar React Testing Library",
+            "description": "Setup do React Testing Library com configurações globais",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Instalar @testing-library/react, @testing-library/jest-dom, @testing-library/user-event. Criar arquivo __tests__/setup.ts com configuração global do jest-dom e configurações de cleanup automático. Configurar vitest para usar este arquivo de setup.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Criar mocks para File System Access API",
+            "description": "Implementar mocks para APIs do navegador não disponíveis em ambiente de teste",
+            "dependencies": [
+              "2.2"
+            ],
+            "details": "Criar __tests__/mocks/fileSystemMocks.ts com implementação mock da File System Access API. Implementar mocks para window.showDirectoryPicker, window.showOpenFilePicker. Configurar vi.mock() no setup.ts para usar estes mocks automaticamente.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Estruturar pastas de testes",
+            "description": "Criar estrutura organizacional para diferentes tipos de testes",
+            "dependencies": [
+              "2.3"
+            ],
+            "details": "Criar estrutura de pastas: __tests__/unit/, __tests__/integration/, __tests__/fixtures/, __tests__/utils/. Criar arquivo __tests__/fixtures/taskmaster-sample.json com dados de exemplo realistas. Criar utilitários de teste em __tests__/utils/testUtils.tsx com wrappers customizados.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Validar configuração completa",
+            "description": "Executar testes e verificar se toda a configuração está funcionando",
+            "dependencies": [
+              "2.4"
+            ],
+            "details": "Criar teste simples em __tests__/unit/App.test.tsx para validar renderização básica. Executar 'npm test' para verificar se configuração funciona. Executar 'npm run test:coverage' para validar geração de relatórios. Verificar se mocks estão funcionando corretamente.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Criar Schemas de Validação Zod",
+        "description": "Implementar schemas Zod para validação de tasks.json e state.json",
+        "details": "Criar src/schemas/tasksSchema.ts com SubtaskSchema, TaskSchema, TagSchema e TasksFileSchema. Criar src/schemas/stateSchema.ts com StateSchema. Definir tipos TypeScript correspondentes em src/types/taskmaster.ts. Implementar validação para status: done, in-progress, pending, blocked e prioridades: high, medium, low.",
+        "testStrategy": "Criar testes unitários para cada schema validando dados válidos e inválidos. Testar estruturas complexas com subtasks e dependências.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar SubtaskSchema",
+            "description": "Implementar schema Zod para validação de subtarefas",
+            "dependencies": [],
+            "details": "Criar src/schemas/tasksSchema.ts e implementar SubtaskSchema com validação para id, title, description, status (done, in-progress, pending, blocked), priority (high, medium, low), dependencies, details, e testStrategy. Incluir validações específicas para formato de ID de subtarefa (ex: '1.1', '2.3').",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Criar TaskSchema",
+            "description": "Implementar schema Zod para validação de tarefas principais",
+            "dependencies": [
+              "3.1"
+            ],
+            "details": "Implementar TaskSchema que inclui todos os campos de SubtaskSchema mais um array de subtasks. Validar que IDs de tarefas principais são números simples (ex: '1', '2', '3'). Incluir validação de dependências entre tarefas e estrutura hierárquica de subtarefas.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Criar TagSchema e StateSchema",
+            "description": "Implementar schemas para tags e estado da aplicação",
+            "dependencies": [],
+            "details": "Implementar TagSchema para validação de estrutura de tags com metadados. Criar src/schemas/stateSchema.ts com StateSchema para validação de state.json incluindo tag atual, configurações, e estado da aplicação. Definir validações para estruturas de dados específicas do Task Master.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Definir tipos TypeScript correspondentes",
+            "description": "Criar tipos TypeScript derivados dos schemas Zod",
+            "dependencies": [
+              "3.1",
+              "3.2",
+              "3.3"
+            ],
+            "details": "Criar src/types/taskmaster.ts com tipos TypeScript derivados dos schemas usando z.infer<>. Implementar TasksFileSchema principal que combina todos os schemas. Exportar tipos Subtask, Task, Tag, State, TasksFile e outros tipos auxiliares. Garantir compatibilidade total entre schemas e tipos.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Implementar Utilitários de Sistema de Arquivos",
+        "description": "Criar funções para acesso a arquivos usando File System Access API com fallback",
+        "details": "Implementar src/utils/fileSystem.ts com funções: showDirectoryPicker (com fallback para input file), readTasksFile, readStateFile, validateDirectoryStructure. Suportar browsers modernos com File System Access API e fallback para input file em browsers antigos. Implementar detecção automática de capacidades do browser.",
+        "testStrategy": "Mockar File System Access API e testar ambos os fluxos (moderno e fallback). Testar validação de estrutura de diretórios e leitura de arquivos JSON.",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implementar detecção de capacidades do browser",
+            "description": "Criar função para detectar se o browser suporta File System Access API",
+            "dependencies": [],
+            "details": "Implementar hasFileSystemAccess() que verifica se 'showDirectoryPicker' está disponível no window. Retornar boolean para determinar qual fluxo usar (moderno ou fallback).",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar File System Access API",
+            "description": "Criar funções para uso da API moderna de acesso a arquivos",
+            "dependencies": [
+              "4.1"
+            ],
+            "details": "Implementar showDirectoryPicker() usando a API nativa, getDirectoryHandle(), e funções para navegar pela estrutura de diretórios. Incluir tipos TypeScript apropriados.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar fallback para input file",
+            "description": "Criar alternativa usando input file para browsers antigos",
+            "dependencies": [
+              "4.1"
+            ],
+            "details": "Implementar showDirectoryPickerFallback() usando input[type='file'][webkitdirectory]. Simular interface similar à API moderna para manter compatibilidade de código.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implementar funções de leitura de arquivos",
+            "description": "Criar readTasksFile e readStateFile para ler arquivos JSON",
+            "dependencies": [
+              "4.2",
+              "4.3"
+            ],
+            "details": "Implementar funções para ler tasks.json e state.json do diretório .taskmaster. Incluir parsing JSON, tratamento de arquivos ausentes, e validação básica de estrutura.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implementar validação de estrutura de diretórios",
+            "description": "Criar validateDirectoryStructure para verificar projeto Task Master válido",
+            "dependencies": [
+              "4.4"
+            ],
+            "details": "Validar presença de diretório .taskmaster, arquivos obrigatórios (tasks.json), e estrutura correta. Retornar detalhes específicos sobre problemas encontrados.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implementar tratamento de erros e logs",
+            "description": "Adicionar sistema robusto de tratamento de erros para todas as operações",
+            "dependencies": [
+              "4.5"
+            ],
+            "details": "Implementar try-catch em todas as funções, tipos de erro específicos (FileNotFoundError, InvalidStructureError), e logging adequado. Incluir mensagens de erro amigáveis ao usuário.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Criar Utilitários de Validação",
+        "description": "Implementar funções de validação usando schemas Zod",
+        "details": "Criar src/utils/validation.ts com funções validateTasksFile, validateStateFile, validateProjectStructure. Implementar tratamento de erros detalhado com mensagens específicas para cada tipo de falha de validação. Adicionar logging para debugging.",
+        "testStrategy": "Testar validação com dados válidos e múltiplos cenários de dados inválidos. Verificar mensagens de erro específicas para cada tipo de falha.",
+        "priority": "medium",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implementar funções de validação core usando Zod",
+            "description": "Criar src/utils/validation.ts com funções principais de validação",
+            "dependencies": [],
+            "details": "Implementar validateTasksFile, validateStateFile e validateProjectStructure usando os schemas Zod já definidos. Cada função deve retornar resultado de validação com dados processados ou lista de erros específicos.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar tratamento e formatação de erros de validação",
+            "description": "Criar sistema robusto para tratamento de erros de validação Zod",
+            "dependencies": [
+              "5.1"
+            ],
+            "details": "Implementar formatValidationErrors para converter erros Zod em mensagens amigáveis. Criar tipos de erro específicos para diferentes falhas (arquivo não encontrado, JSON inválido, schema inválido). Adicionar códigos de erro e sugestões de correção.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar sistema de logging para debugging",
+            "description": "Adicionar logging estruturado para rastreamento de validações",
+            "dependencies": [
+              "5.2"
+            ],
+            "details": "Criar logger configurável com níveis debug, info, warn, error. Implementar logging detalhado para cada etapa de validação. Adicionar timestamps e contexto específico. Permitir ativação/desativação via configuração para ambiente de desenvolvimento.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Implementar Hook useProjectLoader",
+        "description": "Criar hook customizado para carregamento e validação de projetos Task Master",
+        "details": "Criar src/hooks/useProjectLoader.ts que gerencia estado de carregamento, validação e erros. Implementar funções loadProject, resetProject, e estados isLoading, isValid, error, projectData. Integrar com utilitários de sistema de arquivos e validação.",
+        "testStrategy": "Usar renderHook do React Testing Library para testar diferentes cenários: carregamento bem-sucedido, falhas de validação, erros de arquivo. Mockar dependências externas.",
+        "priority": "high",
+        "dependencies": [
+          4,
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Estrutura base do hook com estado",
+            "description": "Definir interface TypeScript e estrutura base do hook useProjectLoader com gerenciamento de estado",
+            "dependencies": [],
+            "details": "Criar src/hooks/useProjectLoader.ts com interface ProjectLoaderState incluindo isLoading, isValid, error, projectData. Implementar hook base usando useState e useCallback. Definir tipos TypeScript para Project, LoaderError e estado do hook.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementação da função loadProject",
+            "description": "Desenvolver lógica de carregamento de projeto com validação",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Implementar função loadProject que recebe path do projeto, valida estrutura de arquivos, carrega tasks.json, e atualiza estado. Adicionar tratamento de erros para arquivos inexistentes, JSON inválido e estrutura incorreta do projeto Task Master.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Função resetProject",
+            "description": "Implementar função para limpar estado e resetar hook",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Criar função resetProject que limpa todos os estados (projectData, error, isValid) e retorna hook ao estado inicial. Implementar lógica para cleanup de resources e cancelamento de operações pendentes.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Integração com utilitários de validação e sistema de arquivos",
+            "description": "Conectar hook com utilitários externos e finalizar implementação",
+            "dependencies": [
+              "6.2",
+              "6.3"
+            ],
+            "details": "Integrar com utilitários de validação Zod da Task 5 e funções de sistema de arquivos da Task 4. Implementar validação de schema completa, tratamento de erros de I/O, e otimizações de performance com debouncing para operações custosas.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Implementar Hook useTaskManager",
+        "description": "Criar hook para gerenciamento de estado e navegação das tarefas",
+        "details": "Criar src/hooks/useTaskManager.ts para gerenciar estado atual das tarefas, tag corrente, navegação hierárquica, e filtragem. Implementar funções setCurrentTag, navigateToTask, filterTasks. Usar useContext para compartilhar estado global.",
+        "testStrategy": "Testar mudanças de tag, navegação entre níveis de tarefas, e funcionalidades de filtragem com dados mock.",
+        "priority": "medium",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar Estrutura de Context e Provider",
+            "description": "Implementar TaskManagerContext e TaskManagerProvider para gerenciamento de estado global",
+            "dependencies": [],
+            "details": "Criar src/hooks/useTaskManager.ts com TaskManagerContext usando React.createContext. Definir interface TaskManagerState com propriedades currentTasks, currentTag, filteredTasks, navigationHistory. Implementar TaskManagerProvider que encapsula toda a aplicação e fornece estado compartilhado.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar Gerenciamento de Estado de Tarefas e Tags",
+            "description": "Criar funções para manipular estado atual de tarefas e tags ativas",
+            "dependencies": [
+              "7.1"
+            ],
+            "details": "Implementar useState para gerenciar currentTag, tasks, e estado de filtragem. Criar funções setCurrentTag, updateTasks, clearFilters. Adicionar persistência de tag atual no localStorage para manter estado entre sessões.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Desenvolver Funções de Navegação Hierárquica",
+            "description": "Implementar sistema de navegação entre níveis de tarefas e subtarefas",
+            "dependencies": [
+              "7.2"
+            ],
+            "details": "Criar funções navigateToTask, navigateToParent, navigateToRoot para navegação hierárquica. Implementar breadcrumb navigation state. Gerenciar histórico de navegação para funcionalidade de voltar. Adicionar detecção de profundidade atual na hierarquia.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implementar Sistema de Filtragem",
+            "description": "Criar funcionalidades de filtragem e busca de tarefas",
+            "dependencies": [
+              "7.2"
+            ],
+            "details": "Implementar filterTasks com critérios: status, prioridade, busca por texto. Criar searchTasks para busca textual em títulos e descrições. Adicionar filterByStatus, filterByPriority, resetFilters. Implementar debouncing para busca textual para otimizar performance.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Implementar Hook useValidation",
+        "description": "Criar hook para validações em tempo real com feedback visual",
+        "details": "Criar src/hooks/useValidation.ts que fornece validação reativa usando schemas Zod. Implementar validateData, validationErrors, isValidating estados. Adicionar debouncing para validações custosas.",
+        "testStrategy": "Testar validação reativa com diferentes tipos de dados e verificar se erros são atualizados corretamente.",
+        "priority": "low",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar estrutura base do hook de validação reativa",
+            "description": "Implementar a estrutura fundamental do hook useValidation com estados básicos",
+            "dependencies": [],
+            "details": "Criar arquivo src/hooks/useValidation.ts com interface básica do hook. Implementar estados useState para dados, erros de validação e status de carregamento. Definir tipos TypeScript para parâmetros e retorno do hook. Estabelecer estrutura básica das funções validateData e clearErrors.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar debouncing para performance",
+            "description": "Adicionar funcionalidade de debouncing para otimizar validações custosas",
+            "dependencies": [
+              "8.1"
+            ],
+            "details": "Implementar useCallback com debounce usando setTimeout para evitar validações excessivas. Configurar delay padrão de 300ms customizável via parâmetro. Gerenciar cleanup do timeout no useEffect para evitar memory leaks. Adicionar estado isValidating para feedback visual durante delay.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Integrar com schemas Zod existentes",
+            "description": "Conectar o hook com schemas de validação Zod do projeto",
+            "dependencies": [
+              "8.2"
+            ],
+            "details": "Importar e integrar schemas Zod existentes do projeto. Implementar função de validação que aceita schema como parâmetro. Mapear erros Zod para formato amigável ao usuário. Adicionar suporte para validação de campos específicos e validação completa do objeto. Garantir compatibilidade com estruturas aninhadas.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Criar Componente ProjectLoader",
+        "description": "Implementar interface para seleção e carregamento de projetos",
+        "details": "Criar src/components/ProjectLoader/index.tsx com botão de seleção de projeto, área de drag-and-drop (quando suportado), indicadores de status de carregamento e validação. Usar Shadcn UI Button, Card, Alert. Implementar feedback visual para diferentes estados: carregando, sucesso, erro.",
+        "testStrategy": "Testar renderização, interações do usuário (clique, drag-and-drop), estados de carregamento, e callback onProjectLoad. Usar @testing-library/user-event para simular interações.",
+        "priority": "high",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar interface base com botão de seleção",
+            "description": "Implementar estrutura básica do componente com botão de seleção de arquivo",
+            "dependencies": [],
+            "details": "Criar arquivo src/components/ProjectLoader/index.tsx com interface básica contendo Shadcn UI Card como container e Button para seleção de arquivo. Implementar input file oculto e onClick handler para trigger da seleção. Configurar tipos TypeScript para props (onProjectLoad callback).",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar funcionalidade de drag-and-drop",
+            "description": "Adicionar suporte para drag-and-drop de arquivos quando disponível",
+            "dependencies": [
+              "9.1"
+            ],
+            "details": "Implementar handlers para dragOver, dragLeave, dragEnter e drop events. Adicionar verificação de suporte do navegador para drag-and-drop. Implementar validação de tipos de arquivo aceitos (.json, .taskmaster). Usar estados para controlar feedback visual durante drag operations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Criar indicadores visuais de estado",
+            "description": "Implementar feedback visual para diferentes estados do componente",
+            "dependencies": [
+              "9.2"
+            ],
+            "details": "Criar estados para loading, success, error e idle. Implementar mudanças visuais: cores de borda durante drag, spinner durante carregamento, ícones de status. Usar Shadcn UI Alert para mensagens de feedback. Adicionar animações de transição suaves entre estados.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Integrar com useProjectLoader",
+            "description": "Conectar componente com hook de carregamento de projetos",
+            "dependencies": [
+              "9.3"
+            ],
+            "details": "Importar e usar useProjectLoader hook para processamento de arquivos. Implementar chamada do callback onProjectLoad quando arquivo é válido. Gerenciar estados de loading e error retornados pelo hook. Implementar debounce para evitar múltiplas chamadas simultâneas.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implementar tratamento de cenários de erro",
+            "description": "Adicionar validação e tratamento robusto de erros",
+            "dependencies": [
+              "9.4"
+            ],
+            "details": "Implementar validação de formato de arquivo (JSON válido, estrutura taskmaster). Tratar erros de leitura de arquivo, parsing JSON, e validação de schema. Exibir mensagens de erro específicas usando Shadcn UI Alert. Implementar retry mechanism e clear error states. Adicionar logging de erros para debugging.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Criar Componente TaskCard",
+        "description": "Implementar componente para exibição individual de tarefas",
+        "details": "Criar src/components/TaskCard/index.tsx que exibe título, descrição, status, prioridade, dependências, detalhes e estratégia de teste. Implementar codificação de cores para status (verde=done, azul=in-progress, amarelo=pending, vermelho=blocked). Usar Shadcn UI Card, Badge. Adicionar hover states e micro-interações.",
+        "testStrategy": "Testar renderização com diferentes dados de tarefa, codificação de cores por status/prioridade, e interações de hover.",
+        "priority": "medium",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implementar estrutura base do TaskCard com dados da tarefa",
+            "description": "Criar componente base TaskCard com props, layout e renderização de dados principais",
+            "dependencies": [],
+            "details": "Criar src/components/TaskCard/index.tsx com interface TypeScript para props da tarefa. Implementar layout base usando Shadcn UI Card com seções para título, descrição, status, prioridade, dependências, detalhes e estratégia de teste. Configurar estrutura de pastas com index.tsx e types.ts.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar sistema de codificação de cores por status e prioridade",
+            "description": "Criar lógica de estilização dinâmica baseada em status e prioridade das tarefas",
+            "dependencies": [
+              "10.1"
+            ],
+            "details": "Implementar mapeamento de cores para status (verde=done, azul=in-progress, amarelo=pending, vermelho=blocked) e prioridade. Usar Shadcn UI Badge para exibição visual. Criar utilitários de estilo reutilizáveis com Tailwind CSS para diferentes combinações de status/prioridade.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Adicionar hover states e micro-interações",
+            "description": "Implementar efeitos visuais interativos e animações para melhorar experiência do usuário",
+            "dependencies": [
+              "10.2"
+            ],
+            "details": "Adicionar hover states com elevação de card, transições suaves, e efeitos de destaque. Implementar micro-interações como animações de entrada, hover nos badges, e feedback visual ao interagir. Usar CSS Transitions e Tailwind CSS para animações performáticas.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Criar Componente Navigation",
+        "description": "Implementar breadcrumb e navegação hierárquica",
+        "details": "Criar src/components/Navigation/index.tsx com breadcrumb showing localização atual, botões de navegação entre níveis, indicadores visuais de hierarquia. Usar Shadcn UI Breadcrumb, Button. Integrar com useTaskManager para navegação.",
+        "testStrategy": "Testar geração correta de breadcrumb, navegação entre níveis, e integração com estado global de tarefas.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar estrutura base do componente breadcrumb",
+            "description": "Implementar a estrutura base do componente de navegação com breadcrumb usando Shadcn UI",
+            "dependencies": [],
+            "details": "Criar arquivo src/components/Navigation/index.tsx com estrutura base usando Shadcn UI Breadcrumb. Definir tipos TypeScript para propriedades do componente. Implementar layout responsivo básico e estilos fundamentais.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar geração dinâmica do caminho de navegação",
+            "description": "Desenvolver lógica para geração automática do breadcrumb baseado na localização atual",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Implementar função para gerar breadcrumb dinâmico baseado na hierarquia de tarefas. Calcular caminho de navegação a partir da tarefa atual até a raiz. Formatear labels de forma amigável ao usuário.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Adicionar botões de navegação entre níveis",
+            "description": "Implementar botões e controles para navegação hierárquica entre níveis de tarefas",
+            "dependencies": [
+              "11.2"
+            ],
+            "details": "Criar botões de navegação para subir/descer níveis na hierarquia. Usar Shadcn UI Button com ícones apropriados. Implementar indicadores visuais de hierarquia e posição atual. Adicionar hover states e micro-interações.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Integrar com useTaskManager para sincronização de estado",
+            "description": "Conectar componente Navigation com hook useTaskManager para gerenciamento de estado global",
+            "dependencies": [
+              "11.3"
+            ],
+            "details": "Integrar componente com useTaskManager para sincronização de estado de navegação. Implementar callbacks para mudanças de localização. Garantir atualização automática do breadcrumb quando estado de tarefas mudar. Testar integração completa.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Criar Componente TaskViewer",
+        "description": "Implementar componente principal de visualização de tarefas",
+        "details": "Criar src/components/TaskViewer/index.tsx que renderiza grid/lista responsiva de TaskCards, integra Navigation, gerencia estado de visualização. Implementar layout responsivo com Grid ou Flexbox. Suportar exibição hierárquica de subtasks.",
+        "testStrategy": "Testar renderização de listas de tarefas, responsividade, navegação integrada, e hierarquia de subtasks.",
+        "priority": "high",
+        "dependencies": [
+          10,
+          11
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implementar layout base responsivo para grid de tarefas",
+            "description": "Criar estrutura base do TaskViewer com layout responsivo usando CSS Grid ou Flexbox",
+            "dependencies": [],
+            "details": "Criar arquivo src/components/TaskViewer/index.tsx com layout base responsivo. Implementar CSS Grid para desktop (3-4 colunas) e Flexbox para mobile (1 coluna). Configurar breakpoints usando Tailwind CSS. Adicionar container principal com padding e espaçamento adequados.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Integrar TaskCard e Navigation no TaskViewer",
+            "description": "Conectar os componentes TaskCard e Navigation dentro do TaskViewer",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Importar e renderizar componentes TaskCard e Navigation. Configurar props necessárias para TaskCard (dados da tarefa, handlers). Posicionar Navigation no topo como breadcrumb. Implementar comunicação entre componentes via props e callbacks.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar gerenciamento de visualização hierárquica de subtasks",
+            "description": "Adicionar lógica para exibir e navegar entre tarefas pai e subtasks",
+            "dependencies": [
+              "12.2"
+            ],
+            "details": "Implementar estado local para controlar nível de visualização atual. Adicionar lógica para filtrar tarefas por nível hierárquico. Criar função para navegar entre níveis (expandir/recolher subtasks). Integrar com useTaskManager para acessar hierarquia completa de tarefas.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implementar responsividade avançada",
+            "description": "Adicionar recursos avançados de responsividade e adaptação de layout",
+            "dependencies": [
+              "12.3"
+            ],
+            "details": "Implementar breakpoints customizados para diferentes tamanhos de tela. Adicionar alternância entre visualização em grid e lista. Configurar número de colunas dinâmico baseado no tamanho da tela. Implementar scroll virtual para listas muito grandes usando react-window ou similar.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Otimizar performance para listas grandes",
+            "description": "Implementar otimizações de performance para renderização de muitas tarefas",
+            "dependencies": [
+              "12.4"
+            ],
+            "details": "Implementar virtualização com react-window para listas com 100+ itens. Adicionar useMemo para memoização de cálculos pesados. Implementar useCallback para handlers de eventos. Adicionar lazy loading para subtasks não visíveis. Configurar React.memo para TaskCard evitar re-renders desnecessários.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Criar Componente ErrorBoundary",
+        "description": "Implementar tratamento de erros da aplicação",
+        "details": "Criar src/components/ErrorBoundary/index.tsx usando React Error Boundary pattern. Implementar fallback UI amigável, logging de erros, botão de reset. Usar Shadcn UI Alert, Button para interface de erro.",
+        "testStrategy": "Testar captura de erros, renderização de fallback UI, e funcionalidade de reset. Simular erros propositais para validar comportamento.",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implementar Error Boundary React Class",
+            "description": "Criar componente React Error Boundary com ciclo de vida completo",
+            "dependencies": [],
+            "details": "Implementar classe React Error Boundary em src/components/ErrorBoundary/ErrorBoundary.tsx com métodos static getDerivedStateFromError() e componentDidCatch(). Gerenciar estado de erro e capturar informações detalhadas do erro incluindo stack trace.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Criar UI de Fallback com Shadcn Components",
+            "description": "Desenvolver interface de erro amigável usando componentes Shadcn",
+            "dependencies": [
+              "13.1"
+            ],
+            "details": "Criar interface de fallback em src/components/ErrorBoundary/ErrorFallback.tsx usando Shadcn UI Alert, Button, Card. Incluir mensagem de erro amigável, botão de reset, e opcionalmente detalhes técnicos colapsáveis. Implementar design responsivo e acessível.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar Sistema de Logging e Reset",
+            "description": "Adicionar funcionalidades de logging de erros e reset da aplicação",
+            "dependencies": [
+              "13.1",
+              "13.2"
+            ],
+            "details": "Implementar logging de erros no componentDidCatch para capturar e reportar erros. Adicionar funcionalidade de reset que limpa estado de erro e recarrega componente. Integrar com eventual sistema de analytics/monitoring futuro. Testar mecanismo de recovery.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Implementar Layout Principal e Roteamento",
+        "description": "Criar layout principal da aplicação e gerenciamento de estado global",
+        "details": "Criar src/App.tsx com layout principal, Context Providers para estado global, roteamento condicional entre ProjectLoader e TaskViewer. Implementar dark mode exclusivo usando Tailwind. Configurar layout responsivo com header, main content, footer.",
+        "testStrategy": "Testar fluxo completo da aplicação, mudanças de estado entre telas, responsividade, e tema dark mode.",
+        "priority": "high",
+        "dependencies": [
+          9,
+          12,
+          13
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar estrutura base do App.tsx",
+            "description": "Configurar estrutura principal do componente App com imports necessários e estrutura JSX básica",
+            "dependencies": [],
+            "details": "Criar arquivo src/App.tsx com imports do React, React Router, e componentes base. Implementar estrutura JSX com div principal e preparar para Context Providers. Configurar tipos TypeScript básicos.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configurar Context Providers para estado global",
+            "description": "Implementar provedores de contexto para gerenciamento de estado da aplicação",
+            "dependencies": [
+              "14.1"
+            ],
+            "details": "Configurar Context Providers para tema, autenticação, e estado de aplicação. Envolver App com providers necessários seguindo ordem correta de aninhamento. Implementar tipos TypeScript para contextos.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar roteamento condicional",
+            "description": "Configurar navegação condicional entre ProjectLoader e TaskViewer baseado no estado",
+            "dependencies": [
+              "14.2"
+            ],
+            "details": "Implementar lógica de roteamento que alterna entre componentes ProjectLoader e TaskViewer baseado no estado do projeto carregado. Usar React Router ou roteamento condicional simples conforme arquitetura definida.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Configurar tema dark mode com Tailwind",
+            "description": "Implementar sistema de tema dark mode exclusivo usando configuração Tailwind customizada",
+            "dependencies": [
+              "14.2"
+            ],
+            "details": "Configurar paleta de cores dark mode (backgrounds #1a1a1a/#2a2a2a/#3a3a3a, texto #e5e5e5/#f5f5f5, acentos amarelos). Implementar provider de tema e aplicar classes CSS globalmente. Garantir consistência visual.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implementar layout responsivo com header/main/footer",
+            "description": "Criar estrutura de layout responsivo com componentes header, área principal e footer",
+            "dependencies": [
+              "14.3",
+              "14.4"
+            ],
+            "details": "Implementar layout responsivo usando CSS Grid/Flexbox com header fixo, área de conteúdo principal expansível, e footer. Garantir funcionamento em diferentes tamanhos de tela (mobile, tablet, desktop).",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Implementar Sistema de Design e Styling",
+        "description": "Finalizar sistema de design com tema dark mode e componentes polidos",
+        "details": "Customizar tema Tailwind para paleta dark mode (backgrounds #1a1a1a/#2a2a2a/#3a3a3a, texto #e5e5e5/#f5f5f5, acentos amarelos #fbbf24/#f59e0b/#d97706). Implementar animações CSS, hover states, micro-interações. Garantir acessibilidade WCAG 2.1 AA.",
+        "testStrategy": "Testar consistência visual, contraste de cores, animações, e acessibilidade com screen readers. Validar responsividade em diferentes tamanhos de tela.",
+        "priority": "medium",
+        "dependencies": [
+          14
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Customizar paleta Tailwind para dark mode",
+            "description": "Implementar configuração customizada do Tailwind com paleta dark mode específica",
+            "dependencies": [],
+            "details": "Customizar tailwind.config.js com paleta dark mode: backgrounds (#1a1a1a/#2a2a2a/#3a3a3a), texto (#e5e5e5/#f5f5f5), acentos amarelos (#fbbf24/#f59e0b/#d97706). Definir variáveis CSS customizadas e classes utilitárias específicas para o tema.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar animações e micro-interações",
+            "description": "Criar sistema de animações CSS e micro-interações para melhor experiência do usuário",
+            "dependencies": [
+              "15.1"
+            ],
+            "details": "Implementar animações CSS usando Tailwind para transições, hover states, e micro-interações. Criar classes customizadas para loading spinners, fade-ins, e animações de navegação. Garantir performance otimizada das animações.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Garantir acessibilidade WCAG 2.1 AA",
+            "description": "Implementar padrões de acessibilidade WCAG 2.1 AA em todos os componentes",
+            "dependencies": [
+              "15.1"
+            ],
+            "details": "Validar contraste de cores conforme WCAG 2.1 AA (mínimo 4.5:1). Implementar navegação por teclado, ARIA labels, e suporte a screen readers. Adicionar focus indicators visíveis e semântica HTML adequada.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Testes de consistência visual e responsividade",
+            "description": "Implementar testes automatizados para validar consistência visual e responsividade",
+            "dependencies": [
+              "15.2",
+              "15.3"
+            ],
+            "details": "Criar testes de snapshot para componentes, validação de responsividade em diferentes breakpoints, e testes de acessibilidade automatizados. Configurar ferramentas para verificação de contraste e validação com screen readers.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Implementar Testes de Integração e Coverage",
+        "description": "Criar suíte completa de testes de integração e garantir cobertura mínima",
+        "details": "Criar testes de integração em src/__tests__/integration/ para fluxo completo: carregamento de projeto, validação, visualização de tarefas. Implementar fixtures de dados realistas. Configurar coverage reporting para 80% mínimo. Adicionar scripts de teste no package.json.",
+        "testStrategy": "Executar 'npm run test:coverage' para verificar cobertura mínima. Testar fluxos end-to-end principais. Validar que todos os componentes passam nos testes de acessibilidade.",
+        "priority": "high",
+        "dependencies": [
+          15
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar fixtures de dados realistas",
+            "description": "Implementar dados mock realistas para testes de integração",
+            "dependencies": [],
+            "details": "Criar arquivos de fixtures em src/__tests__/fixtures/ com dados de projetos Task Master realistas incluindo: tasks.json com hierarquia completa de tarefas, config.json com configurações válidas, PRDs de exemplo, e dados de diferentes estados (projetos vazios, com dependências, com erros). Estruturar fixtures reutilizáveis para diferentes cenários de teste.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar testes de fluxo completo de carregamento de projeto",
+            "description": "Criar testes end-to-end para carregamento e validação de projetos",
+            "dependencies": [
+              "16.1"
+            ],
+            "details": "Desenvolver testes de integração em src/__tests__/integration/project-loading.test.tsx que testem o fluxo completo: seleção de diretório, carregamento de arquivos Task Master, validação de estrutura, tratamento de erros, e exibição de dados. Usar fixtures criadas e simular interações do usuário com @testing-library/user-event.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar testes de validação e visualização",
+            "description": "Criar testes para validação de dados e renderização de componentes",
+            "dependencies": [
+              "16.1"
+            ],
+            "details": "Desenvolver testes em src/__tests__/integration/task-visualization.test.tsx que validem: renderização correta da árvore de tarefas, navegação entre diferentes tags, filtros de status, exibição de detalhes de tarefas, e interações com componentes de UI. Testar casos edge como tarefas sem subtasks, dependências circulares, e dados corrompidos.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Configurar coverage reporting",
+            "description": "Configurar sistema de relatórios de cobertura de código",
+            "dependencies": [],
+            "details": "Configurar Jest coverage reporting em jest.config.js com thresholds mínimos (80% para statements, branches, functions, lines). Configurar exclusões para arquivos de configuração e setup. Adicionar scripts no package.json: 'test:coverage', 'test:coverage:watch', 'test:coverage:report'. Configurar geração de relatórios HTML e integração com CI.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implementar testes de acessibilidade",
+            "description": "Criar testes automatizados de acessibilidade WCAG",
+            "dependencies": [],
+            "details": "Configurar @testing-library/jest-dom e jest-axe para testes de acessibilidade. Criar testes que validem: navegação por teclado, labels corretos, contraste de cores, estrutura semântica, e compatibilidade com screen readers. Implementar testes em todos os componentes principais da aplicação.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Otimizar cobertura para atingir 80%",
+            "description": "Implementar testes adicionais para atingir meta de cobertura",
+            "dependencies": [
+              "16.2",
+              "16.3",
+              "16.4",
+              "16.5"
+            ],
+            "details": "Analisar relatório de coverage para identificar gaps. Implementar testes unitários e de integração focados em: edge cases não cobertos, funções utilitárias, tratamento de erros, e cenários menos comuns. Priorizar areas com baixa cobertura e alto impacto. Refatorar código quando necessário para melhorar testabilidade.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-26T13:23:39.673Z",
+      "updated": "2025-07-26T13:26:52.521Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
