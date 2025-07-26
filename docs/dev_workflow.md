@@ -77,6 +77,7 @@
 ### 6. ⚙️ IMPLEMENTAÇÃO
 
 - Siga o plano criado no deepthink
+- Crie um feature branch baseado em `main` e faça seu trabalho neste feature branch
 - Mantenha commits pequenos e frequentes durante desenvolvimento
 - **Princípios durante implementação**:
   - 🎯 Foque no essencial
@@ -123,12 +124,13 @@ Closes #TaskID
 
 ```
 ## Desenvolvimento Tarefa #[ID]
-**Data**: [Data atual]
+**Data**: [Data atual] (utilize no shell `date "+%Y-%m-%d_%H:%M:%S"` para obter o timestamp)
 **Título**: [Título da tarefa]
 
 ### Resumo
 - Status: Concluída
 - Tempo estimado: [tempo]
+- Tempo empregado: [tempo]
 - Abordagem utilizada: [breve descrição]
 
 ### Implementação
@@ -142,7 +144,11 @@ Closes #TaskID
 - [Possíveis melhorias futuras]
 ```
 
-### 11. 📢 NOTIFICAÇÃO DE FINALIZAÇÃO
+### 11. ⛄ ABERTURA DO PULL REQUEST
+
+Utilize o Github CLI, para abrir um PR com uma descrição abrangente e precisa sobre a implementação.
+
+### 12. 📢 NOTIFICAÇÃO DE FINALIZAÇÃO
 
 - **Ação**: Notifique sobre a conclusão da tarefa
 - **Formato da notificação**:
@@ -179,8 +185,8 @@ npm run qa
 
 # Verificações individuais (se disponíveis)
 npm run lint
-npm run test
 npm run typecheck
+npm run test:run
 npm run build
 ```
 
