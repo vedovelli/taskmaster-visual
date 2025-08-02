@@ -246,18 +246,40 @@ describe('fileSystem utilities', () => {
       expect(result).toBe(false);
     });
 
-    it('should return false when error occurs during iteration', async () => {
+    it('should return false for expected permission errors', async () => {
+      const dirHandle = createMockFileSystemDirectoryHandle('test-dir');
+      
+      // Test NotAllowedError
+      dirHandle.entries = vi.fn().mockReturnValue({
+        [Symbol.asyncIterator]: vi.fn().mockReturnValue({
+          next: vi.fn().mockRejectedValue(new DOMException('Not allowed', 'NotAllowedError')),
+        }),
+      });
+      
+      const result1 = await entryExists(dirHandle, 'tasks.json');
+      expect(result1).toBe(false);
+
+      // Test SecurityError
+      dirHandle.entries = vi.fn().mockReturnValue({
+        [Symbol.asyncIterator]: vi.fn().mockReturnValue({
+          next: vi.fn().mockRejectedValue(new DOMException('Security error', 'SecurityError')),
+        }),
+      });
+      
+      const result2 = await entryExists(dirHandle, 'tasks.json');
+      expect(result2).toBe(false);
+    });
+
+    it('should re-throw unexpected errors', async () => {
       const dirHandle = createMockFileSystemDirectoryHandle('test-dir');
       
       dirHandle.entries = vi.fn().mockReturnValue({
         [Symbol.asyncIterator]: vi.fn().mockReturnValue({
-          next: vi.fn().mockRejectedValue(new Error('Permission denied')),
+          next: vi.fn().mockRejectedValue(new Error('Unexpected error')),
         }),
       });
       
-      const result = await entryExists(dirHandle, 'tasks.json');
-      
-      expect(result).toBe(false);
+      await expect(entryExists(dirHandle, 'tasks.json')).rejects.toThrow('Unexpected error');
     });
   });
 
