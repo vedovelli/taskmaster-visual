@@ -164,7 +164,7 @@
               "4.1"
             ],
             "details": "Implementar showDirectoryPicker() usando a API nativa, getDirectoryHandle(), e funções para navegar pela estrutura de diretórios. Incluir tipos TypeScript apropriados.",
-            "status": "pending",
+            "status": "in-progress",
             "testStrategy": ""
           },
           {
@@ -907,7 +907,7 @@
     ],
     "metadata": {
       "created": "2025-07-26T13:23:39.673Z",
-      "updated": "2025-07-26T15:17:46.374Z",
+      "updated": "2025-08-02T12:17:48.767Z",
       "description": "Tasks for master context"
     }
   }
