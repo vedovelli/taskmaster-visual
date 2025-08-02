@@ -115,7 +115,10 @@ export async function showDirectoryPicker(options?: {
   mode?: 'read' | 'readwrite';
   startIn?: 'desktop' | 'documents' | 'downloads' | 'music' | 'pictures' | 'videos' | FileSystemHandle;
 }): Promise<FileSystemDirectoryHandle> {
-  if (!hasFileSystemAccess) {
+  // Verificação dinâmica para permitir testes
+  const isSupported = typeof window !== 'undefined' && 'showDirectoryPicker' in window;
+  
+  if (!isSupported) {
     throw new Error('File System Access API is not supported in this browser');
   }
 
