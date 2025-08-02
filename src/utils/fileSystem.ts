@@ -140,8 +140,14 @@ export async function showDirectoryPicker(options?: {
  * 
  * @example
  * ```typescript
- * const rootDir = await showDirectoryPicker();
- * const subDir = await getDirectoryHandle(rootDir, '.taskmaster');
+ * try {
+ *   const rootDir = await showDirectoryPicker();
+ *   const subDir = await getDirectoryHandle(rootDir, '.taskmaster');
+ * } catch (error) {
+ *   if (error.name === 'NotFoundError') {
+ *     console.log('Directory does not exist');
+ *   }
+ * }
  * ```
  */
 export async function getDirectoryHandle(
@@ -154,6 +160,13 @@ export async function getDirectoryHandle(
 
 /**
  * Gets a file handle from a directory handle.
+ * 
+ * @example
+ * ```typescript
+ * const rootDir = await showDirectoryPicker();
+ * const tasksDir = await getDirectoryHandle(rootDir, '.taskmaster');
+ * const tasksFile = await getFileHandle(tasksDir, 'tasks.json');
+ * ```
  * 
  * @param directoryHandle - The directory handle to search in
  * @param fileName - Name of the file to access
@@ -223,7 +236,13 @@ export async function entryExists(
     }
     return false;
   } catch (error) {
-    return false;
+    // Only return false for expected errors like permission issues
+    if (error instanceof DOMException && 
+        (error.name === 'NotAllowedError' || error.name === 'SecurityError')) {
+      return false;
+    }
+    // Re-throw unexpected errors
+    throw error;
   }
 }
 
@@ -266,8 +285,17 @@ export async function navigateToPath(
 ): Promise<FileSystemDirectoryHandle> {
   let currentHandle = rootHandle;
   
-  for (const directoryName of path) {
-    currentHandle = await getDirectoryHandle(currentHandle, directoryName);
+  for (let i = 0; i < path.length; i++) {
+    const directoryName = path[i];
+    try {
+      currentHandle = await getDirectoryHandle(currentHandle, directoryName);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'NotFoundError') {
+        const pathSoFar = path.slice(0, i + 1).join('/');
+        throw new Error(`Directory not found at path: ${pathSoFar}`);
+      }
+      throw error;
+    }
   }
   
   return currentHandle;
