@@ -1,0 +1,1 @@
+Usar o Basic Memory MCP e Task Master MCP para verificar as tarefas e meórias do projeto e me fornecer um relatório da última semana de trabalho. Preciso me situar antes de prosseguir com o desenvolvimento.
