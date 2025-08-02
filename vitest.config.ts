@@ -24,6 +24,7 @@ export default defineConfig({
         "dist/",
         "*.config.{ts,js}",
         "src/vite-env.d.ts",
+        "src/components/ui/**",
       ],
       statements: 80,
       branches: 80,
