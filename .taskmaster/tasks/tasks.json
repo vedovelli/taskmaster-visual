@@ -910,5 +910,150 @@
       "updated": "2025-08-02T12:19:43.465Z",
       "description": "Tasks for master context"
     }
+  },
+  "stripe": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Configuração Inicial do Supabase",
+        "description": "Configurar projeto Supabase com autenticação e estrutura inicial do banco de dados",
+        "details": "Criar projeto no Supabase, configurar tabelas 'profiles' e 'subscriptions', configurar Row Level Security (RLS), configurar providers de autenticação (email/password e social login), obter as chaves da API do Supabase. Estrutura da tabela profiles: id (uuid), email (text), subscription_status (text), stripe_customer_id (text), created_at (timestamp). Estrutura da tabela subscriptions: id (uuid), user_id (uuid), stripe_subscription_id (text), status (text), current_period_end (timestamp).",
+        "testStrategy": "Verificar criação das tabelas no painel do Supabase, testar conexão com o banco através do cliente JavaScript, validar que as políticas RLS estão funcionando corretamente",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Integração do Cliente Supabase no Frontend",
+        "description": "Configurar cliente Supabase e sistema de autenticação no React",
+        "details": "Instalar @supabase/supabase-js, criar lib/supabaseClient.ts com configuração do cliente, criar contexto de autenticação AuthContext, implementar hooks useAuth e useUser, criar componentes de login/registro usando Shadcn UI (components/auth/LoginForm.tsx, SignUpForm.tsx), configurar redirecionamento após login/logout, implementar proteção de rotas privadas.",
+        "testStrategy": "Testar fluxo completo de registro e login, verificar persistência da sessão após refresh da página, validar redirecionamentos e proteção de rotas",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Configuração da Conta Stripe",
+        "description": "Configurar conta Stripe e produtos de assinatura",
+        "details": "Criar conta Stripe, configurar produtos: Freemium (R$ 0), Pro (R$ 9,99/mês), Enterprise (R$ 29,99/mês), configurar preços recorrentes mensais, configurar webhooks apontando para as Edge Functions do Supabase, obter chaves da API (publishable key e secret key), configurar domínios permitidos para checkout.",
+        "testStrategy": "Verificar produtos criados no dashboard Stripe, testar webhook endpoints com Stripe CLI, validar configurações de segurança",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Desenvolvimento da Edge Function create-checkout-session",
+        "description": "Criar função serverless para inicializar sessão de checkout do Stripe",
+        "details": "Criar supabase/functions/create-checkout-session/index.ts, implementar validação de autenticação via JWT do Supabase, integrar com Stripe API para criar checkout session, configurar success_url e cancel_url, incluir metadata com user_id do Supabase, configurar customer_email automaticamente, implementar tratamento de erros e logs. Usar Deno e importar stripe do https://esm.sh/stripe.",
+        "testStrategy": "Usar Supabase CLI para testar função localmente, validar criação de sessão no dashboard Stripe, testar diferentes cenários de erro",
+        "priority": "high",
+        "dependencies": [
+          1,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Desenvolvimento da Edge Function stripe-webhook",
+        "description": "Criar função serverless para processar webhooks do Stripe",
+        "details": "Criar supabase/functions/stripe-webhook/index.ts, implementar validação de assinatura do webhook usando stripe.webhooks.constructEvent, processar eventos: customer.subscription.created, customer.subscription.updated, customer.subscription.deleted, invoice.payment_succeeded, invoice.payment_failed, atualizar tabelas profiles e subscriptions no Supabase, implementar idempotência para evitar processamento duplicado, logs detalhados para debugging.",
+        "testStrategy": "Testar com Stripe CLI webhook forwarding, simular diferentes eventos no dashboard Stripe, verificar atualizações corretas no banco de dados",
+        "priority": "high",
+        "dependencies": [
+          1,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Desenvolvimento da Edge Function create-billing-portal-session",
+        "description": "Criar função serverless para portal de cobrança do Stripe",
+        "details": "Criar supabase/functions/create-billing-portal-session/index.ts, implementar validação de autenticação, obter stripe_customer_id do usuário no Supabase, criar sessão do billing portal usando stripe.billingPortal.sessions.create, configurar return_url para a aplicação, implementar tratamento de erros para usuários sem customer_id.",
+        "testStrategy": "Testar redirecionamento para portal de cobrança, verificar funcionalidades disponíveis no portal, validar retorno para a aplicação",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Implementação do Hook useSubscription",
+        "description": "Criar hook personalizado para gerenciar status de assinatura",
+        "details": "Criar hooks/useSubscription.ts, implementar lógica para buscar status da assinatura do usuário autenticado, configurar Supabase Realtime para updates em tempo real, retornar isLoading, subscriptionStatus, isSubscribed, currentPlan, implementar cache local para performance, incluir função refreshSubscription para atualizações manuais.",
+        "testStrategy": "Testar mudanças de status em tempo real, verificar performance com cache, validar diferentes estados de assinatura",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Desenvolvimento dos Componentes de Planos e Cobrança",
+        "description": "Criar componentes de UI para planos de assinatura e gerenciamento de cobrança",
+        "details": "Criar components/billing/PricingPlans.tsx com cards dos planos usando Shadcn UI, implementar componente SubscriptionStatus.tsx para mostrar status atual, criar BillingPortal.tsx com botão para portal de cobrança, implementar estados de loading e error, integrar com as Edge Functions via fetch API, usar React Query ou SWR para cache das requisições, implementar feedback visual para ações do usuário.",
+        "testStrategy": "Testar fluxo completo de seleção de plano, verificar estados de loading, validar redirecionamentos para Stripe",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          4,
+          6,
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Implementação do SubscriptionGate",
+        "description": "Criar componente para controle de acesso baseado em assinatura",
+        "details": "Criar components/billing/SubscriptionGate.tsx, implementar lógica condicional baseada no status da assinatura, criar diferentes layouts para usuários free vs pagos, implementar fallback para loading states, adicionar links para upgrade quando necessário, criar tipos TypeScript para diferentes níveis de acesso (features permitidas por plano), implementar HOC withSubscriptionGate para proteção de rotas.",
+        "testStrategy": "Testar acesso com diferentes status de assinatura, verificar transições quando status muda, validar comportamento em estados de loading",
+        "priority": "high",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Integração Final e Testes End-to-End",
+        "description": "Integrar todos os componentes e realizar testes completos do fluxo de assinatura",
+        "details": "Integrar SubscriptionGate na aplicação principal para proteger conteúdo premium, configurar rotas de sucesso e cancelamento após checkout, implementar tratamento de erros global, configurar variáveis de ambiente para produção, realizar testes end-to-end: registro → seleção de plano → pagamento → acesso liberado → gerenciamento via portal, implementar analytics para tracking de conversões, otimizar performance e UX das transições.",
+        "testStrategy": "Executar cenários completos de teste: fluxo de upgrade, downgrade, cancelamento, renovação automática, falhas de pagamento, testar em diferentes navegadores e dispositivos",
+        "priority": "medium",
+        "dependencies": [
+          4,
+          5,
+          6,
+          8,
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-08-02T13:36:12.405Z",
+      "updated": "2025-08-02T13:39:19.597Z",
+      "description": "Tasks for stripe context"
+    }
   }
 }
